@@ -1,0 +1,464 @@
+/* ---------- Menú de juegos ---------- */
+.juegos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.juego-tarjeta {
+  display: block;
+  padding: 26px 18px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--texto);
+  background: var(--blanco);
+  border: 4px solid var(--rosa);
+  border-radius: 24px;
+  box-shadow: 0 6px 0 var(--celeste), 0 10px 18px rgba(91, 58, 82, 0.15);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.juego-tarjeta:nth-child(4n+2),
+.juego-tarjeta:nth-child(4n+3) {
+  border-color: var(--celeste);
+  box-shadow: 0 6px 0 var(--rosa), 0 10px 18px rgba(91, 58, 82, 0.15);
+}
+
+.juego-tarjeta:hover {
+  transform: translateY(-8px) rotate(-1.5deg);
+  border-color: var(--rosa-fuerte);
+}
+
+.juego-emoji {
+  font-size: 4rem;
+  line-height: 1.2;
+}
+
+.juego-tarjeta h3 {
+  margin: 6px 0;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--rosa-fuerte);
+}
+
+/* Los botones que son enlaces */
+a.btn {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* ---------- Adivina el cuento ---------- */
+.marcador {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.adivina-zona {
+  display: grid;
+  grid-template-columns: minmax(170px, 270px) 1fr;
+  gap: 26px;
+  align-items: start;
+}
+
+.adivina-imagen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--rosa-claro), var(--celeste-claro));
+  border: 5px solid #fff;
+  outline: 3px solid var(--rosa);
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(91, 58, 82, 0.25);
+}
+
+/* El signo de pregunta queda por encima de la portada borrosa */
+.signo {
+  position: relative;
+  z-index: 2;
+  padding: 10px;
+  text-align: center;
+  font-family: "Pacifico", cursive;
+  font-size: 5rem;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 3px 3px 0 var(--rosa-fuerte), 6px 6px 0 var(--celeste-fuerte);
+  transition: opacity 1.5s ease;
+}
+
+.adivina-imagen.sin-imagen .signo {
+  font-size: 1.6rem;
+}
+
+/* La portada empieza borrosa y se aclara con cada pista */
+.adivina-imagen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(var(--desenfoque, 36px)) saturate(0.7);
+  transform: scale(1.15);
+  transition: filter 1.2s ease, transform 1.2s ease;
+}
+
+/* Al acertar, se aclara del todo poco a poco */
+.adivina-imagen.revelada img {
+  filter: none;
+  transform: scale(1);
+  transition: filter 3.5s ease, transform 3.5s ease;
+}
+
+.adivina-imagen.revelada .signo {
+  opacity: 0;
+}
+
+.adivina-titulo {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  color: var(--celeste-fuerte);
+}
+
+.pistas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0 14px;
+  list-style: none;
+  counter-reset: pista;
+}
+
+.pistas li {
+  position: relative;
+  padding: 10px 16px 10px 56px;
+  font-weight: 600;
+  line-height: 1.35;
+  background: var(--rosa-claro);
+  border: 3px solid var(--rosa);
+  border-radius: 16px;
+  counter-increment: pista;
+  animation: entrar-carril 0.4s ease both;
+}
+
+.pistas li:nth-child(even) {
+  background: var(--celeste-claro);
+  border-color: var(--celeste);
+}
+
+.pistas li::before {
+  content: counter(pista);
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rosa-fuerte), var(--celeste-fuerte));
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 18px 0 6px;
+}
+
+.opcion {
+  padding: 14px 12px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  background: #fff;
+  border: 3px solid var(--celeste);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.opcion:hover:not(:disabled) {
+  transform: scale(1.04);
+  background: var(--celeste-claro);
+}
+
+.opcion:disabled {
+  cursor: not-allowed;
+}
+
+.opcion.mal {
+  color: #b3547b;
+  background: var(--rosa-claro);
+  border-color: var(--rosa);
+  opacity: 0.7;
+  animation: sacudir 0.4s ease;
+}
+
+.opcion.bien {
+  background: #fff3b0;
+  border-color: #ffc93c;
+}
+
+@keyframes sacudir {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+
+/* ---------- Ruleta ---------- */
+.ruleta-panel {
+  text-align: center;
+}
+
+.ruleta-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.ruleta-opciones select {
+  padding: 10px 16px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  background: #fff;
+  border: 3px solid var(--celeste);
+  border-radius: 50px;
+}
+
+.ruleta-caja {
+  position: relative;
+  width: min(100%, 460px);
+  margin: 0 auto 22px;
+}
+
+.ruleta-caja canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 8px 0 var(--celeste), 0 14px 24px rgba(91, 58, 82, 0.25);
+}
+
+.ruleta-puntero {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-top: 34px solid var(--rosa-fuerte);
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
+  transform: translateX(-50%);
+}
+
+.resultado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 28px;
+  padding: 20px;
+  background: var(--celeste-claro);
+  border: 4px solid var(--celeste);
+  border-radius: 22px;
+  animation: abrir-ganador 0.5s ease both;
+}
+
+.resultado[hidden] {
+  display: none;
+}
+
+.resultado img {
+  width: 140px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 4px solid #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(91, 58, 82, 0.25);
+}
+
+.resultado-etiqueta {
+  font-weight: 700;
+  color: var(--celeste-fuerte);
+}
+
+.resultado h3 {
+  margin: 4px 0 14px;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--rosa-fuerte);
+}
+
+/* ---------- Memorama ---------- */
+.memo-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.memo-niveles,
+.memo-datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.memo-niveles .btn {
+  padding: 8px 20px;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(var(--columnas, 4), 1fr);
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Las cartas tienen la forma de una portada (3:4) */
+.carta {
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  perspective: 700px;
+}
+
+.carta-giro {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.carta.volteada .carta-giro {
+  transform: rotateY(180deg);
+}
+
+.cara {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.cara-frente {
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  color: #fff;
+  background: linear-gradient(135deg, var(--rosa-fuerte), var(--celeste-fuerte));
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(91, 58, 82, 0.3);
+}
+
+/* La cara de atrás muestra la portada del cuento */
+.cara-dorso {
+  padding: 0;
+  background: var(--blanco);
+  border: 4px solid var(--rosa);
+  transform: rotateY(180deg);
+}
+
+.cara-dorso img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Si todavía no está la imagen, se ve el título */
+.carta-titulo {
+  padding: 6px;
+  text-align: center;
+  font-size: clamp(0.7rem, 2vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--rosa-fuerte);
+}
+
+.carta.encontrada .cara-dorso {
+  border-color: #ffc93c;
+  box-shadow: 0 0 16px rgba(255, 201, 60, 0.95);
+  animation: pop-carta 0.45s ease;
+}
+
+.carta.encontrada {
+  cursor: default;
+}
+
+@keyframes pop-carta {
+  0%   { transform: rotateY(180deg) scale(0.9); }
+  60%  { transform: rotateY(180deg) scale(1.08); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+
+@media (max-width: 700px) {
+  .adivina-zona {
+    grid-template-columns: 1fr;
+  }
+
+  .adivina-imagen {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .opciones {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .juegos-grid {
+    gap: 14px;
+  }
+
+  .juego-tarjeta {
+    padding: 18px 10px;
+  }
+
+  .juego-emoji {
+    font-size: 3rem;
+  }
+
+  .juego-tarjeta h3 {
+    font-size: 1.15rem;
+  }
+
+  .juego-tarjeta p {
+    font-size: 0.85rem;
+  }
+}

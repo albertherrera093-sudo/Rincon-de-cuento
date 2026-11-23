@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruleta de cuentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gatos.css">
+  <link rel="stylesheet" href="juegos.css">
+</head>
+<body>
+
+  <div class="decoracion" aria-hidden="true">
+    <span class="nube nube-1">☁️</span>
+    <span class="nube nube-2">☁️</span>
+    <span class="nube nube-3">☁️</span>
+  </div>
+
+  <header class="cabecera">
+    <h1>Ruleta de cuentos</h1>
+    <p>Gira y descubre qué cuento leer hoy 🎡</p>
+
+    <svg class="ola" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,48 C960,96 1200,16 1440,64 L1440,120 L0,120 Z"></path>
+    </svg>
+  </header>
+
+  <main>
+    <section class="panel ruleta-panel">
+      <div class="ruleta-opciones">
+        <label for="categoria">Cuentos de:</label>
+        <select id="categoria">
+          <option value="todos">Todos</option>
+          <option value="clasicos">Cuentos clásicos</option>
+          <option value="emociones">Emociones y valores</option>
+        </select>
+        <button id="btn-mezclar" class="btn btn-claro" type="button">🔀 Cambiar cuentos</button>
+      </div>
+
+      <div class="ruleta-caja">
+        <div class="ruleta-puntero" aria-hidden="true"></div>
+        <canvas id="ruleta" aria-label="Ruleta de cuentos"></canvas>
+      </div>
+
+      <button id="btn-girar" class="btn btn-grande" type="button">🎡 ¡Girar!</button>
+
+      <div id="resultado" class="resultado" hidden>
+        <img id="res-imagen" alt="">
+        <div>
+          <p class="resultado-etiqueta">¡Te toca leer!</p>
+          <h3 id="res-titulo"></h3>
+          <div class="ganador-botones">
+            <a id="res-leer" class="btn" href="index.html">📖 Leer este cuento</a>
+            <button id="btn-otra" class="btn btn-claro" type="button">🔁 Girar otra vez</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="boton-gatos" href="juegos.html">🎮 Volver a los juegos</a>
+  </footer>
+
+  <script src="sonidos.js"></script>
+  <script src="juegos-comun.js"></script>
+  <script src="ruleta.js"></script>
+</body>
+</html>

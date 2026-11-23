@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memorama</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gatos.css">
+  <link rel="stylesheet" href="juegos.css">
+</head>
+<body>
+
+  <div class="decoracion" aria-hidden="true">
+    <span class="nube nube-1">☁️</span>
+    <span class="nube nube-2">☁️</span>
+    <span class="nube nube-3">☁️</span>
+  </div>
+
+  <header class="cabecera">
+    <h1>Memorama</h1>
+    <p>Encuentra todas las parejas 🃏</p>
+
+    <svg class="ola" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,48 C960,96 1200,16 1440,64 L1440,120 L0,120 Z"></path>
+    </svg>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="memo-barra">
+        <div class="memo-niveles">
+          <button class="btn nivel activo" data-nivel="facil" type="button">Fácil</button>
+          <button class="btn btn-claro nivel" data-nivel="medio" type="button">Medio</button>
+          <button class="btn btn-claro nivel" data-nivel="dificil" type="button">Difícil</button>
+        </div>
+        <div class="memo-datos">
+          <span>👆 <strong id="movimientos">0</strong> movimientos</span>
+          <span>⏱️ <strong id="tiempo">0:00</strong></span>
+          <button id="btn-reiniciar" class="btn btn-claro" type="button">🔀 Reiniciar</button>
+        </div>
+      </div>
+
+      <div id="tablero" class="tablero"></div>
+    </section>
+  </main>
+
+  <div id="final" class="ganador oculto" role="dialog" aria-modal="true">
+    <div class="ganador-caja">
+      <div class="trofeo">🏆</div>
+      <h2>¡Lo lograste!</h2>
+      <p id="final-estrellas" class="ganador-nombre"></p>
+      <p id="final-texto"></p>
+      <div class="ganador-botones">
+        <button id="btn-otra" class="btn" type="button">🔁 Jugar otra vez</button>
+        <a class="btn btn-claro" href="juegos.html">🎮 Más juegos</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="boton-gatos" href="juegos.html">🎮 Volver a los juegos</a>
+  </footer>
+
+  <script src="sonidos.js"></script>
+  <script src="juegos-comun.js"></script>
+  <script src="memorama.js"></script>
+</body>
+</html>

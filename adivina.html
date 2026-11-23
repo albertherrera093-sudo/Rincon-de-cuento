@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adivina el cuento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gatos.css">
+  <link rel="stylesheet" href="juegos.css">
+</head>
+<body>
+
+  <div class="decoracion" aria-hidden="true">
+    <span class="nube nube-1">☁️</span>
+    <span class="nube nube-2">☁️</span>
+    <span class="nube nube-3">☁️</span>
+  </div>
+
+  <header class="cabecera">
+    <h1>Adivina el cuento</h1>
+    <p>Lee las pistas y descubre cuál es 🔎</p>
+
+    <svg class="ola" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,48 C960,96 1200,16 1440,64 L1440,120 L0,120 Z"></path>
+    </svg>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="marcador">
+        <span id="ronda">Cuento 1 de 5</span>
+        <span id="puntos">⭐ 0</span>
+      </div>
+
+      <div class="adivina-zona">
+        <div id="marco-imagen" class="adivina-imagen">
+          <span id="signo" class="signo">?</span>
+          <img id="portada" alt="Portada del cuento" hidden>
+        </div>
+
+        <div>
+          <h2 class="adivina-titulo">¿Qué cuento es?</h2>
+          <ol id="pistas" class="pistas"></ol>
+          <button id="btn-pista" class="btn btn-claro" type="button">💡 Otra pista</button>
+
+          <div id="opciones" class="opciones"></div>
+          <p id="mensaje" class="aviso" aria-live="polite"></p>
+          <button id="btn-siguiente" class="btn" type="button" hidden>Siguiente cuento ➜</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="final" class="ganador oculto" role="dialog" aria-modal="true">
+    <div class="ganador-caja">
+      <div class="trofeo">🏆</div>
+      <h2>¡Terminaste!</h2>
+      <p id="final-puntos" class="ganador-nombre"></p>
+      <p id="final-texto"></p>
+      <div class="ganador-botones">
+        <button id="btn-otra" class="btn" type="button">🔁 Jugar otra vez</button>
+        <a class="btn btn-claro" href="juegos.html">🎮 Más juegos</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="boton-gatos" href="juegos.html">🎮 Volver a los juegos</a>
+  </footer>
+
+  <script src="sonidos.js"></script>
+  <script src="juegos-comun.js"></script>
+  <script src="adivina.js"></script>
+</body>
+</html>
